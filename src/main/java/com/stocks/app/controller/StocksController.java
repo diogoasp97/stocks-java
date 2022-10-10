@@ -3,6 +3,8 @@ package com.stocks.app.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -23,32 +25,38 @@ public class StocksController {
 	StockService stockService;
 	
 	@GetMapping("all")
-	public List<Stock> all(){
-		return stockService.all();
+	public  ResponseEntity<List<Stock>> all(){
+		List<Stock> stockList = stockService.all();
+		return new ResponseEntity<List<Stock>>(stockList, HttpStatus.OK);
 	}
 	
 	@GetMapping("getById/{id}")
-	public Stock getById(@PathVariable("id") long id) {
-		return stockService.getById(id);
+	public ResponseEntity<Stock> getById(@PathVariable("id") long id) {
+		Stock stock = stockService.getById(id);
+		return new ResponseEntity<Stock>(stock, HttpStatus.OK);
 	}
 	
 	@GetMapping("getByName/{name}")
-	public Stock getByName(@PathVariable("name") String name) {
-		return stockService.getByName(name);
+	public ResponseEntity<Stock> getByName(@PathVariable("name") String name) {
+		Stock stock = stockService.getByName(name);
+		return new ResponseEntity<Stock>(stock, HttpStatus.OK);
 	}
 	
 	@PostMapping("add")
-	public Stock addStock(@RequestBody Stock stock) {
-		return stockService.addStock(stock);
+	public ResponseEntity<Stock> addStock(@RequestBody Stock stock) {
+		Stock stockAdded = stockService.addStock(stock);
+		return new ResponseEntity<Stock>(stockAdded, HttpStatus.CREATED);
 	}
 	
 	@PatchMapping("update")
-	public Stock updateStock(@RequestBody Stock stock) {
-		return stockService.updateStock(stock);
+	public ResponseEntity<Stock> updateStock(@RequestBody Stock stock) {
+		Stock stockUpdated = stockService.updateStock(stock);
+		return new ResponseEntity<Stock>(stockUpdated, HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("delete/{id}")
-	public void deleteById(@PathVariable("id") long id) {
+	public ResponseEntity<?> deleteById(@PathVariable("id") long id) {
 		stockService.deleteById(id);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
