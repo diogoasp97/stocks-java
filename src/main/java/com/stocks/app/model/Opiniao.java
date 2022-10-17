@@ -16,13 +16,19 @@ public class Opiniao {
 	@Column(nullable = false, updatable = false)
 	private long opiniaoId;
 	private String textoOpiniao;
-	private Date date;
+	private String date;
 	
 	public Opiniao() {
 		
 	}
 	
-	public Opiniao(String textoOpiniao, Date date) {
+	public Opiniao(String textoOpiniao, String date) {
+		this.date = date;
+		this.textoOpiniao = textoOpiniao;
+	}
+	
+	public Opiniao(long opiniaoId, String textoOpiniao, String date) {
+		this.opiniaoId = opiniaoId;
 		this.date = date;
 		this.textoOpiniao = textoOpiniao;
 	}
@@ -35,11 +41,11 @@ public class Opiniao {
 		this.textoOpiniao = textoOpiniao;
 	}
 	
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

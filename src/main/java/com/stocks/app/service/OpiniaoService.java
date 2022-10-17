@@ -18,4 +18,12 @@ public class OpiniaoService {
 		return opiniaoRepository.findAll();
 	}
 
+	public Opiniao addOpiniao(Opiniao opiniao) {
+		return opiniaoRepository.save(opiniao);
+	}
+	
+	public Long getLatestOpiniao() {
+		return opiniaoRepository.max();
+	}
+
 }
